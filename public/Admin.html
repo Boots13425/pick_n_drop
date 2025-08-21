@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6f8fb;
+            margin: 0;
+        }
+        .navbar {
+            background: #2196f3;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .navbar .logo {
+            font-weight: bold;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo:before {
+            content: "📦";
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        .navbar .search {
+            margin-left: 40px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .navbar input[type="text"] {
+            width: 300px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+        }
+        .navbar .icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .navbar .icon {
+            font-size: 1.3em;
+            cursor: pointer;
+        }
+        .sidebar {
+            width: 220px;
+            background: #2196f3;
+            color: #222;
+            height: 100vh;
+            position: fixed;
+            top: 60px; left: 0;
+            padding-top: 20px;
+            border-right: 1px solid #e3e7ee;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 14px 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            transition: background 0.2s;
+        }
+        .sidebar ul li.active, .sidebar ul li:hover {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        .sidebar ul li .icon {
+            margin-right: 12px;
+            font-size: 1.1em;
+        }
+        .main {
+            margin-left: 240px;
+            margin-top: 70px;
+            padding: 30px;
+        }
+        .dashboard-cards {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        .dashboard-card {
+            background: #fff;
+            padding: 28px 24px;
+            border-radius: 12px;
+            flex: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .dashboard-card .title {
+            font-size: 1em;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .dashboard-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #222;
+        }
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+        .dashboard-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .dashboard-section h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+            margin-bottom: 18px;
+        }
+        .shipment-volume-chart {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(180deg,#e3f2fd 60%,#fff 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: #1976d2;
+            font-size: 1.2em;
+        }
+        .active-shipments-map {
+            width: 100%;
+            height: 180px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1976d2;
+            font-size: 1.2em;
+        }
+        .recent-shipments-table, .disputes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .recent-shipments-table th, .recent-shipments-table td,
+        .disputes-table th, .disputes-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: left;
+            font-size: 0.97em;
+        }
+        .recent-shipments-table th, .disputes-table th {
+            background: #f8f8f8;
+            color: #888;
+        }
+        .reviews-list {
+            margin-top: 10px;
+            padding-left: 18px;
+        }
+        .reviews-list li {
+            margin-bottom: 8px;
+            font-size: 0.97em;
+        }
+        .user-table-section {
+            margin-top: 24px;
+        }
+        .user-table-section h2 {
+            font-size: 1.2em;
+            margin-bottom: 16px;
+        }
+        #user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #user-table th, #user-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: left;
+            font-size: 0.97em;
+        }
+        #user-table th {
+            background: #f8f8f8;
+            color: #888;
+        }
+        button {
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        @media (max-width: 900px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            .main {
+                margin-left: 0;
+                padding: 12px;
+            }
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">PicknDrop</div>
+        <div class="search">
+            <input type="text" placeholder="Search">
+        </div>
+        <div class="icons">
+            <span class="icon">🔔</span>
+            <span class="icon">👤</span>
+        </div>
+    </div>
+    <div class="sidebar">
+        <ul>
+            <li class="active"><span class="icon">🏠</span>Dashboard</li>
+            <li id="users-link" onclick="window.location.href='user.html'" style="position:relative;">
+                <span class="icon">👥</span>Users
+                <span id="pending-badge" style="display:none;position:absolute;right:18px;top:12px;background:#f44336;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;"></span>
+            </li>
+            <li><span class="icon">📦</span>Shipments</li>
+            <li><span class="icon">🧳</span>Travelers</li>
+            <li><span class="icon">💳</span>Payments</li>
+            <li><span class="icon">⭐</span>Reviews</li>
+            <li><span class="icon">⚙️</span>Settings</li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="title">Total Shipments</div>
+                <div class="value">1,230</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="title">Revenue</div>
+                <div class="value">$23,450</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="title">Users</div>
+                <div class="value">1,450</div>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div>
+                <div class="dashboard-section">
+                    <h3>Shipment Volume</h3>
+                    <div class="shipment-volume-chart">
+                    
+                        [Chart Placeholder]
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Recent Shipments</h3>
+                    <table class="recent-shipments-table">
+                        <!-- <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Location</th>
+                                <th>Traveler</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PND-1254</td>
+                                <td>New York</td>
+                                <td>Disenante</td>
+                                <td>Pending</td>
+                            </tr>
+                            <tr>
+                                <td>PND-5678</td>
+                                <td>Cape Town</td>
+                                <td>J. Smith</td>
+                                <td>Delivered</td>
+                            </tr>
+                            <tr>
+                                <td>PND-6012</td>
+                                <td>London</td>
+                                <td>A. Gomez</td>
+                                <td>Pending</td>
+                            </tr>
+                        </tbody> -->
+                    </table>
+                    <button style="background:#2196f3;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;">Leave Your Reviews</button>
+                    <button style="background:#e3f2fd;color:#1976d2;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;margin-left:8px;">View More Reviews</button>
+                </div>
+            </div>
+            <div>
+                <div class="dashboard-section">
+                    <h3>Active Shipments</h3>
+                    <div class="active-shipments-map">
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Disputes</h3>
+                    <table class="disputes-table">
+                        <!-- <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Traveler</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PND-3456</td>
+                                <td>Brmna</td>
+                                <td>Semdhr</td>
+                                <td>Reason</td>
+                            </tr>
+                            <tr>
+                                <td>PND-7800</td>
+                                <td>M. Lee</td>
+                                <td>S. Johns</td>
+                                <td>Delayed</td>
+                            </tr>
+                        </tbody> -->
+                    </table>
+                    <h4 style="margin-top:18px;margin-bottom:8px;font-size:1em;color:#888;">Recent Reviews</h4>
+                    <ul class="reviews-list">
+                        <li>⭐ Great service, highly recommend (PicknDrop)! <span style="color:#1976d2;">P. Hans</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div>
+                <div class="dashboard-section" id="pending-images-section">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="user-table-section">
+            <h2>User Management</h2>
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Documents</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="user-table-body">
+                    <!-- Dynamic user rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Sidebar navigation
+        const sidebarLinks = document.querySelectorAll('.sidebar ul li');
+        const dashboardSections = document.querySelectorAll('.dashboard-section');
+        const mainTitle = document.querySelector('.main h1');
+        sidebarLinks.forEach((link, idx) => {
+            link.addEventListener('click', () => {
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                // Show/hide dashboard sections based on link
+                dashboardSections.forEach(sec => sec.style.display = 'block');
+                if (link.textContent.includes('Dashboard')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'block');
+                } else if (link.textContent.includes('Users')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'none');
+                    alert('Users management coming soon!');
+                } else if (link.textContent.includes('Shipments')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'none');
+                    alert('Shipments management coming soon!');
+                } else if (link.textContent.includes('Travelers')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'none');
+                    alert('Travelers management coming soon!');
+                } else if (link.textContent.includes('Payments')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'none');
+                    alert('Payments management coming soon!');
+                } else if (link.textContent.includes('Reviews')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'none');
+                    alert('Reviews management coming soon!');
+                } else if (link.textContent.includes('Settings')) {
+                    dashboardSections.forEach(sec => sec.style.display = 'none');
+                    alert('Settings coming soon!');
+                }
+            });
+        });
+
+        // Review buttons
+        document.querySelector('button').onclick = function() {
+            const review = prompt('Enter your review:');
+            if (review) {
+                const ul = document.querySelector('.reviews-list');
+                const li = document.createElement('li');
+                li.innerHTML = `⭐ ${review} <span style="color:#1976d2;">You</span>`;
+                ul.appendChild(li);
+                window.scrollTo({top: ul.offsetTop, behavior: 'smooth'});
+            }
+        };
+        document.querySelectorAll('button')[1].onclick = function() {
+            const reviewsSection = document.querySelector('.reviews-list');
+            reviewsSection.scrollIntoView({behavior: 'smooth'});
+        };
+
+        // Notification/Profile icons
+        document.querySelectorAll('.navbar .icon')[0].onclick = function() {
+            alert('No new notifications.');
+        };
+        document.querySelectorAll('.navbar .icon')[1].onclick = function() {
+            alert('Profile options coming soon!');
+        };
+
+        // Fetch pending images from backend
+        function loadPendingImages() {
+            fetch('/api/pending-images')
+                .then(res => res.json())
+                .then(images => {
+                    const list = document.getElementById('pending-images-list');
+                    list.innerHTML = '';
+                    if (images.length === 0) {
+                        list.innerHTML = '<p>No pending images.</p>';
+                        return;
+                    }
+                    images.forEach(img => {
+                        const div = document.createElement('div');
+                        div.style.marginBottom = '18px';
+                        div.innerHTML = `
+                            <img src="${img.url}" alt="Pending" style="max-width:120px;max-height:120px;border-radius:8px;border:1px solid #eee;margin-right:12px;">
+                            <span>${img.username}</span>
+                            <button style="background:#4caf50;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;margin-left:8px;" onclick="approveImage('${img.id}')">Approve</button>
+                            <button style="background:#f44336;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;margin-left:4px;" onclick="rejectImage('${img.id}')">Reject</button>
+                        `;
+                        list.appendChild(div);
+                    });
+                });
+        }
+        window.loadPendingImages = loadPendingImages;
+
+        // Approve image
+        window.approveImage = function(id) {
+            fetch('/api/approve-image', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id})
+            }).then(res => res.json())
+              .then(data => {
+                alert('Image approved! User can now post a trip.');
+                loadPendingImages();
+                // Optionally, redirect to next.html for posting a trip
+                window.open('next.html', '_blank');
+            });
+        };
+
+        // Reject image
+        window.rejectImage = function(id) {
+            fetch('/api/reject-image', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id})
+            }).then(res => res.json())
+              .then(data => {
+                alert('Image rejected.');
+                loadPendingImages();
+            });
+        };
+
+        // Load pending images on page load
+        document.addEventListener('DOMContentLoaded', loadPendingImages);
+
+        // Load users for validation and show badge
+        function loadUsersForValidation() {
+            fetch('/api/kyc-users')
+                .then(res => res.json())
+                .then(users => {
+                    const tbody = document.getElementById('user-table-body');
+                    const badge = document.getElementById('pending-badge');
+                    const pendingCount = users.filter(u => u.status === 'pending').length;
+                    if (pendingCount > 0) {
+                        badge.textContent = pendingCount;
+                        badge.style.display = 'inline-block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                    tbody.innerHTML = '';
+                    if (users.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No users pending validation.</td></tr>';
+                        return;
+                    }
+                    users.forEach(user => {
+                        // Show images if pending
+                        let docsHtml = '';
+                        if (user.status === 'pending' && user.images) {
+                            docsHtml = user.images.map(url =>
+                                `<img src="${url}" alt="doc" style="max-width:60px;max-height:60px;border-radius:6px;border:1px solid #eee;margin-right:6px;">`
+                            ).join('');
+                        }
+                        // If approved, show a checkmark
+                        if (user.status === 'approved') {
+                            docsHtml = '<span style="color:#4caf50;font-size:1.3em;">&#10003;</span>';
+                        }
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>
+                                <span style="
+                                    color: #fff;
+                                    background: ${user.status === 'approved' ? '#4caf50' : '#ff9800'};
+                                    border-radius: 6px;
+                                    padding: 4px 12px;
+                                    font-size: 0.95em;
+                                    display: inline-block;
+                                ">
+                                    ${user.status === 'approved' ? 'Active' : 'Pending'}
+                                </span>
+                            </td>
+                            <td>${docsHtml}</td>
+                            <td>
+                                ${user.status === 'pending' ? `<button onclick="validateKyc(${user.kyc_id})">Validate</button>` : ''}
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        function validateKyc(kycId) {
+            fetch('/api/approve-kyc', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ id: kycId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('User validated!');
+                    loadUsersForValidation();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsersForValidation();
+        });
+    </script>
+</body>
+</html>

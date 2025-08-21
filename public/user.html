@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management | PicknDrop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+         background: #f6f8fb;
+         font-family: 'Segoe UI', Arial, sans-serif; margin: 0;
+          }
+        .sidebar {
+            width: 220px; background: #2196f3; 
+            height: 100vh; position: fixed; 
+            left: 0; 
+            top: 0;
+            border-right: 1px solid #e3e7ee;
+            padding-top: 0;
+        }
+        .sidebar ul { 
+        list-style: none; 
+        padding: 0; 
+        }
+        .sidebar ul li {
+            padding: 16px 32px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center;
+            border-radius: 8px; 
+            margin-bottom: 6px; 
+            color: #222; 
+            transition: background 0.2s;
+        }
+        .sidebar ul li.active, .sidebar ul li:hover {
+             background: #e3f2fd;
+              color: #1976d2; 
+            }
+        .sidebar ul li .icon {
+             margin-right: 12px; 
+             font-size: 1.1em; 
+            }
+        .main {
+            margin-left: 240px; 
+            padding: 32px;
+        }
+        .header {
+            background: #2196f3; 
+            color: #fff; 
+             padding: 18px 32px;
+            border-radius: 0;
+            margin-bottom: 32px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+        }
+        .header 
+        .logo { font-weight: bold; font-size: 1.2em; display: flex; align-items: center; }
+        .header 
+        .logo:before { content: "📍"; font-size: 1.2em; margin-right: 8px; }
+        .header 
+        .welcome { font-size: 1em; }
+        .user-table-section { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 28px; }
+        .user-table-section h2 { margin-top: 0; margin-bottom: 18px; font-size: 1.1em; }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th, td {
+             padding: 12px 16px; 
+             border-bottom: 1px solid #f0f0f0; 
+             text-align: left; 
+            }
+        th { 
+            background: #f8f8f8; 
+            color: #888; 
+        }
+        .status-active { color: #fff; background: #4caf50; border-radius: 6px; padding: 4px 12px; font-size: 0.95em; }
+        .status-inactive { color: #fff; background: #f44336; border-radius: 6px; padding: 4px 12px; font-size: 0.95em; }
+        .status-pending { color: #fff; background: #ff9800; border-radius: 6px; padding: 4px 12px; font-size: 0.95em; }
+        tr.user-row { cursor: pointer; }
+        tr.user-row:hover { background: #e3f2fd; }
+        @media (max-width: 900px) {
+            .main { margin-left: 0; padding: 12px; }
+            .sidebar { position: static; width: 100%; height: auto; border-right: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li onclick="window.location.href='/dashboard'"><span class="icon">🏠</span>Dashboard</li>
+            <li class="active"><span class="icon">👥</span>Users</li>
+            <li onclick="window.location.href='/shipments'"><span class="icon">📦</span>Shipments</li>
+            <li onclick="window.location.href='/payments'"><span class="icon">💳</span>Payments</li>
+            <li onclick="window.location.href='/settings'"><span class="icon">⚙️</span>Settings</li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="header">
+            <div class="logo">PicknDrop</div>
+            <div class="welcome">Welcome, Admin Sarah 😊</div>
+        </div>
+        <div class="user-table-section">
+            <h2>User Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="user-row" onclick="window.location.href='/view?user=john'">
+                        <td>John Doe</td>
+                        <td>john@evsn.com</td>
+                        <td><span class="status-active">Active</span></td>
+                    </tr>
+                    <tr class="user-row" onclick="window.location.href='/view?user=jane'">
+                        <td>Jane Smith</td>
+                        <td>jane@evsn.com</td>
+                        <td><span class="status-active">Active</span></td>
+                    </tr>
+                    <tr class="user-row" onclick="window.location.href='/view?user=david'">
+                        <td>David Johnson</td>
+                        <td>david@nveuvrom.com</td>
+                        <td><span class="status-inactive">Inactive</span></td>
+                    </tr>
+                    <tr class="user-row" onclick="window.location.href='/view?user=sarah'">
+                        <td>Sarah Williams</td>
+                        <td>sarah@evsn.com</td>
+                        <td><span class="status-active">Active</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
