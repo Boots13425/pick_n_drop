@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | PickNdrop</title>
+  <link rel="shortcut icon" href="logo.jpg">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('background.jpg') no-repeat center/cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+    .left-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .back-btn {
+      background: #222;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .back-btn:hover {
+      background: #7c3aed;
+    }
+    header img { height: 50px; }
+    nav a {
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    nav a:hover {
+      background: #7c3aed;
+    }
+
+    .about-wrapper {
+      display: flex;
+      flex: 1;
+      margin: 60px auto;
+      width: 90%;
+      max-width: 1000px;
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .about-left {
+      flex: 1;
+      background: rgba(124, 58, 237, 0.2);
+      padding: 40px;
+    }
+    .about-right {
+      flex: 2;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    footer p {
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-group">
+      <a href="home.html" class="back-btn">⬅ Back</a>
+      <img src="logo.jpg" alt="Logo">
+    </div>
+    <nav>
+      <a href="policy.html">Policy</a>
+      <a href="testimonials.html">Testimonials</a>
+    </nav>
+  </header>
+
+  <div class="about-wrapper">
+    <div class="about-left">
+      <h1>Who We Are</h1>
+      <p>PickNdrop is a delivery platform that links senders with travelers to save cost and time.</p>
+    </div>
+    <div class="about-right">
+      <h1>Our Story</h1>
+      <p>Founded on the idea that travel shouldn't be wasted, PickNdrop gives everyone the chance to make deliveries smarter.</p>
+      <p>Whether you’re sending a care package or delivering goods, we connect the dots—securely, affordably, and globally.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 PickNdrop. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

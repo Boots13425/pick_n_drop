@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PickNdrop Homepage</title>
+  <link rel="shortcut icon" href="logo.jpg">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }body {
+  background-image: url('background.jpg'); /* Replace with 3rd image */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+header { display: flex; align-items: center; justify-content: space-between; padding: 20px; }
+header img { height: 50px; }
+
+nav {
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  background-color: #222;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #7c3aed;
+}
+
+.container { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 80vh; padding: 20px; }
+
+h1 { font-size: 2.5rem; background: rgba(0,0,0,0.6); padding: 20px 40px; border-radius: 12px; margin-bottom: 40px; }
+
+.btn-group { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-bottom: 35px; }
+.btn { background:#222; color:#fff; padding:12px 24px; border:none; border-radius:8px; font-size:16px; cursor:pointer; transition: background 0.3s; text-decoration: none; display: inline-block; }
+.btn:hover { background:#7c3aed; }
+
+/* cards */
+.cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:20px; width:100%; max-width:900px; }
+.card { background:rgba(0,0,0,0.55); padding:25px 20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.3); transition:transform .25s; }
+.card:hover { transform:translateY(-4px); }
+.card-icon { font-size:2.5rem; margin-bottom:12px; }
+.card h3 { margin-bottom:8px; font-size:1.2rem; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.jpg" alt="PickNdrop Logo" />
+    <nav>
+      <a href="about.html">About Us</a>
+      <a href="policy.html">Policy</a>
+      <a href="testimonials.html">Testimonials</a>
+    </nav>
+  </header>  <div class="container">
+    <h1>Welcome to PICKNDROP<br>Send Packages Through Travelers</h1><div class="btn-group">
+  <button class="btn" onclick="loginButton()">Log In</button>
+  <button class="btn" onclick="signinButton()">Sign Up</button>
+</div>
+
+<!-- Service cards -->
+<div class="cards" id="serviceCards">
+  <div class="card">
+    <div class="card-icon">🔍</div>
+    <h3>Find a Traveler</h3>
+    <p>Search trusted travelers headed to your destination.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">📦</div>
+    <h3>Book Delivery</h3>
+    <p>Reserve space for your package and book instantly.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">✅</div>
+    <h3>Track &amp; Confirm</h3>
+    <p>Monitor your parcel in real-time and confirm arrival.</p>
+  </div>
+
+  <script>
+
+    function loginButton(){
+      window.location.href='login.html'
+    }
+    function signinButton(){
+      window.location.href='sign up2.html'
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | PickNdrop</title>
+    <link rel="shortcut icon" href="logo.jpg">
+</head>
+<body>
+    <style>
+        body{
+          background-color: white;
+          color: black;
+          transition: 0.7s;
+        }
+        body.dark-mode{
+            background-color: rgb(33, 33, 33);
+            color: white;
+        }
+
+        .hamburger{
+            width: 45px;
+            height: 45px;
+            border:  none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+       
+        .hamburger img{
+           width: 30px;
+           height: 30px;
+        }
+       .appname{
+        display: flex;
+        margin: 35px;
+        margin-top: 70px;
+       }
+       .mylogo{
+        display: flex;
+        margin: 35px;
+        margin-top: -6px;
+       }
+       input{
+        width: 400px;
+        height: 30px;
+        border-radius: 10px;
+        margin-left: 200px;
+       }
+       button{
+        border-radius: 20px;
+        cursor: pointer;
+       }
+       /*Sidebar stylying*/
+        ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        list-style: none;
+        font-size: 30px;
+        font-weight: bolder;
+        color: black;
+        gap: 20px;
+       }
+
+        ul :hover,
+        ul .active{
+        transition: 0.4s;
+        background: rgba(0, 0, 0, 0.274);
+        width: 100%;
+        }
+       
+       /*Show Sidebar*/
+      
+       .sidebar_hidden{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+        margin-top: 90px;
+        margin-left: -19px;
+        width: 180px;
+        height: 550px;
+        background: #2563c5;
+        position: fixed;
+       }
+
+       /*Toogle button*/
+       .hidebar{
+        display: none;
+       }
+       li{
+        display: flex;
+        margin-left: -40px;
+       }
+
+       nav{
+        margin-left: -8px;
+        margin-right: -8px;
+        margin-top: -10px;
+        display: flex;
+        justify-content: space-between;
+        height: 100px;
+        width: 100%;
+        align-items: center;
+        background: #2563c5;
+        position: fixed;
+       }
+       a{
+        text-decoration: none;
+        color: black;
+        font-size: 25px;
+       }
+       .content.shifted{
+        margin-left: 200px;
+       }
+       #main {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        margin-top: 30px;
+      }
+      .card {
+      background: rgb(243, 245, 255);
+      border-radius: 10px;
+      box-shadow: 0 0 5px;
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 200px;
+      }
+      .card h3 {
+      margin-bottom: 0.75rem;
+      color: black;
+      }
+      .card p {
+      color: #413d3d;
+      margin-bottom: 1.35rem;
+      font-size: 20px;
+      line-height: 1.45;
+      }
+      .btn{
+        background: rgb(122, 200, 226);
+        height: 50px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: bolder;
+        color: white;
+        border-radius: 10px;
+        transition: 0.3s;
+      }
+      .btn:hover {
+      background: #1565c0;
+      transform: scale(1.05);
+      }
+      #logout{
+        display: none;
+      }
+      #toogle{
+        height: 20px;
+        background: rgb(122, 200, 226);
+      }
+    </style>
+   <!--Nvigation bar-->
+    <nav>
+       <div class="appname">
+            <button id="menutoogle" class="hamburger" onclick="displaySidebar()"><img src="bars-solid.svg"></button>
+            <div class="mylogo">
+                <img src="logo.jpg" width="50px" height="50px">
+                <h1>PICKN<span style="color: rgb(0, 191, 255);">DROP</span></h1>
+            </div>
+       </div>
+       <div style="display: flex; margin: 35px;">
+          <p id="greetings" style="font-size: 20px; color: white; margin-top: 75px; margin-right: 40px;"></p><button onclick="logOutAccount()" style="height: 30px; width: 30px; margin-top: 75px; margin-left: -28px;"><img src="circle-user-solid.svg" width="40px" height="30px" style="margin-left: -13px; margin-top: -4px;"></button>
+       </div>
+    </nav>
+    <div id="sidebar" class="hidebar">
+        <div class="sidebar_hidden">
+            <ul>
+                <li><img src="house-solid.svg" width="40px" height="23px"><a href="Dashboard.html" class="active">Dashboard</a></li>
+                <li style="margin-left: -30px;"><img src="magnifying-glass-solid.svg" width="23px" height="30px"><a href="findtrips.html">Find trips</a></li>
+                <li><img src="bell-solid.svg" width="40px" height="23px"><a>Notifications</a></li>
+                <li><img src="user-solid.svg" width="40px" height="23px"><a href="Profile.html">Profile</a></li>
+            </ul>
+            <p>________________________</p>
+
+            <div class="extra_features" >
+                <ul style="font-size: 20px; font-weight: bolder;">
+                    <li><img src="flag-solid.svg" width="30px" height="20px"><a href="Reports.html">Reports</a></li>
+                    <li><img src="message-solid.svg" width="30px" height="20px"><a href="Feedback.html">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+       
+    </div>
+    
+<main id="main" class="content">
+  
+      <h2 style="font-size: 50px;display: flex;margin-bottom: 30px; margin-top: 80px; ">
+        <img src="house-solid.svg" width="40px" height="60px">Dashboard
+      </h2><div id="logout" style="border-radius: 4px; position: fixed; box-shadow: 0 0 3px; margin-top: -120px; margin-left: 1150px; margin-bottom: 80px; text-align: center; background-color: beige; width: 100px; height: 30px;"><p style="margin-top: 1px;"><a href="home.html" style="color: red; font-size: 20px;">Log out</a></p></div>
+
+     <!-- Dashboard Cards -->
+    <section class="grid">
+         <div class="card">
+            <h3>Add a Trip</h3>
+            <p>Share your travel plans for shipments.</p>
+            <a href="kyc.html" class="btn">Add Trip</a>
+         </div>
+
+      <div class="card">
+        <h3>Ship a Package</h3>
+        <p>Find travelers to deliver your shipment.</p>
+        <a href="findtrips.html" class="btn">Ship Package</a>
+      </div>
+
+      <a href="Recent-shipments.html">
+        <div class="card">
+          <h3>Recent Shipments</h3>
+          <p><strong>Bamenda → Toronto</strong><br>April&nbsp;20,&nbsp;2024</p>
+        </div>
+      </a>
+
+      <div class="card">
+        <h3>Advanced Tracking</h3>
+        <p>Track your shipment in real time.</p>
+      </div>
+
+      <div class="card">
+        <h3>Feedback</h3>
+        <p>Share your experience, help us improve.</p>
+        <a href="#" class="btn">Leave Feedback</a>
+      </div>
+
+      <div class="card">
+        <h3>Notifications</h3>
+        <p>You have <span id="notifNum">3</span> new updates.</p>
+      </div>
+
+      <div class="card">
+        <h3>Payment</h3>
+        <p>View and manage your transactions.</p>
+      </div>
+
+      <div class="card">
+        <h3>Change Theme</h3>
+        <p>Switch between light and dark mode</p>
+        <button id="toogle" onclick="toggleTheme()">Toogle theme</button>
+      </div>
+    </section>
+</main>
+
+    <script src="theme.js"></script>
+    <script>
+        function displaySidebar() {
+          const sidebar = document.getElementById("sidebar");
+          const mainContent = document.getElementById("main");
+
+          if (sidebar.style.display === "block") {
+            sidebar.style.display = "none";   //Hide it
+            mainContent.classList.remove("shifted");
+          } else {
+            sidebar.style.display = "block";   //Show it
+            mainContent.classList.add("shifted");
+          }
+        }
+
+        function logOutAccount() {
+          const logOut = document.getElementById("logout");
+
+          if (logOut.style.display === "block"){
+            logOut.style.display = "none";
+          }else{
+            logOut.style.display = "block";
+          }
+        }
+
+        // Toggle between dark and light mode
+        function toggleTheme() {
+         const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+
+          // Switch the theme
+          document.body.classList.toggle('dark-mode');
+
+          // Save the new theme to localStorage
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('theme', newTheme);
+        }
+
+        // On page load, apply the saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+          const savedTheme = localStorage.getItem('theme');
+
+          if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+          } else {
+            document.body.classList.remove('dark-mode');
+          }
+
+          
+        });
+
+       window.onload = function() {
+        const firstInput = localStorage.getItem("username");
+        const greet = document.getElementById("greetings");
+
+        if(firstInput) {
+          greet.innerHTML = `Hello👋, <strong>${firstInput}</strong>!`;
+        }else{
+          greet.innerHTML = "Welcome!"
+          //alert('User with name not found');
+        }
+       };
+    </script>
+</body>
+</html>

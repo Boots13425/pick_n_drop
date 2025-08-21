@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shipment Dashboard</title>
+
+  <!-- ─────── 🎨  INLINE CSS  ─────── -->
+  <style>
+    :root {
+      --primary: #2563c5;
+      --primary-light:skyblue;
+      --bg: #f5f7fa;
+      --text: #0d1b2a;
+      --card: #ffffff;
+      --radius: 12px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ─── Sidebar ─── */
+    #sidebar {
+      width: 250px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2rem;
+      transition: left 0.3s ease;
+    }
+    #sidebar .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #fff;
+      margin-bottom: 2rem;
+    }
+    #sidebar nav {
+      width: 100%;
+    }
+    #sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      margin-bottom: 0.25rem;    /* breathing room */
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    #sidebar nav a:hover,
+    #sidebar nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .badge {
+      background: crimson;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      margin-left: 0.35rem;
+    }
+
+    /* ─── Main Content ─── */
+    #main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;   /* roomy! */
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 200px;
+    }
+    .card h3 {
+      margin-bottom: 0.75rem;
+    }
+    .card p {
+      color: #555;
+      margin-bottom: 1.35rem;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.1rem;
+      border: none;
+      border-radius: 6px;
+      background: var(--primary-light);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #1565c0;
+    }
+
+   
+  </style>
+</head>
+
+<body>
+  <!-- ☰ Toggle Button (mobile) -->
+  <button id="sidebarToggle" class="hidden">&#9776;</button>
+<aside id="sidebar">
+  <div id="logo">PICK<span>NDROP</span></div>
+   
+    <nav>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="findtrip.html">Find Trip</a>
+      <a href="my shipments.html">My Shipments</a>
+      <a href="messages.html">Messages<span id="msgCount" class="badge"></span></a>
+      <a href="feedback.html">Feedback</a>
+      <a href="notifications.html">Notifications<span id="notifCount" class="badge"></span></a>
+      <a href="payment.html">Payment</a>
+      <a href="profile.html">My Profile></a>
+    </nav>
+  </aside>
+
+  <!-- ─── Main Content ─── -->
+  <main id="main">
+    <h1>Dashboard</h1>
+
+    <!-- Hero / Banner -->
+    <img src=""
+         alt="PICKNDROP was designed to help travellers connect with people who need help to send their goods"
+         style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius); margin-bottom: 2rem;" />
+
+    <!-- Dashboard Cards -->
+    <section class="grid">
+      <div class="card">
+        <h3>Post a Trip</h3>
+        <p>Share your travel plans for shipments.</p>
+        <a href="#" class="btn">Post Trip</a>
+      </div>
+
+      <div class="card">
+        <h3>Ship a Package</h3>
+        <p>Find travelers to deliver your shipment.</p>
+        <a href="#" class="btn">Ship Package</a>
+      </div>
+
+      <div class="card">
+        <h3>Recent Shipments</h3>
+        <p><strong>Bamenda → Toronto</strong><br>April&nbsp;20,&nbsp;2024</p>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Tracking</h3>
+        <p>Track your shipment in real time.</p>
+      </div>
+
+      <div class="card">
+        <h3>Feedback</h3>
+        <p>Share your experience, help us improve.</p>
+        <a href="#" class="btn">Leave Feedback</a>
+      </div>
+
+      <div class="card">
+        <h3>Notifications</h3>
+        <p>You have <span id="notifNum">3</span> new updates.</p>
+      </div>
+
+      <div class="card">
+        <h3>Payment</h3>
+        <p>View and manage your transactions.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─────── ✨  JavaScript  ─────── -->
+  <script>
+    const sidebar   = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+
+    /* Show / hide sidebar on small screens */
+    const updateToggleVisibility = () => {
+      if (window.innerWidth <= 768) {
+        toggleBtn.classList.remove("hidden");
+      } else {
+        toggleBtn.classList.add("hidden");
+        sidebar.classList.remove("show");
+      }
+    };
+
+    toggleBtn.addEventListener("click", () =>
+      sidebar.classList.toggle("show")
+    );
+    window.addEventListener("resize", updateToggleVisibility);
+    updateToggleVisibility();
+
+    /* Fake dynamic counters */
+    document.getElementById("msgCount").textContent   = "5";
+    document.getElementById("notifCount").textContent = "3";
+  </script>
+</body>
+</html>

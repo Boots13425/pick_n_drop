@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Testimonials | PickNdrop</title>
+  <link rel="shortcut icon" href="logo.jpg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('background.jpg') no-repeat center/cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .back-btn {
+      background: #7c3aed;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #5b21b6;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    nav a {
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-left: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #7c3aed;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 60px auto;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      flex: 1;
+    }
+
+    main h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .testimonial {
+      background: rgba(124, 58, 237, 0.2);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      position: relative;
+    }
+
+    .testimonial:hover {
+      background: rgba(124, 58, 237, 0.4);
+    }
+
+    .author {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .more {
+      display: none;
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #ddd;
+      border-left: 4px solid #7c3aed;
+      padding-left: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    footer p {
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-group">
+      <a href="home.html" class="back-btn">⬅ Back</a>
+      <img src="logo.jpg" alt="PickNdrop Logo">
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="policy.html">Policy</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Testimonials</h1>
+
+    <div class="testimonial">
+      <div class="author">📦 Grace from yaounde</div>
+      “PickNdrop helped me send a birthday gift to my sister in LA...”
+      <div class="more">...The traveler was super nice, and the package arrived in perfect condition. Love this service!</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="author">✈ Samuel from Douala</div>
+      “I carried a package for someone while traveling to Sydney...”
+      <div class="more">...It felt safe, organized, and I even made a new friend! 10/10 would recommend.</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="author">🛍 Anita from Buea</div>
+      “Needed to send clothes urgently and PickNdrop saved me...”
+      <div class="more">...Super fast, super easy. Way better than traditional courier!</div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 PickNdrop. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Expand testimonial details on click
+    document.querySelectorAll('.testimonial').forEach(testimonial => {
+      testimonial.addEventListener('click', () => {
+        const more = testimonial.querySelector('.more');
+        const isVisible = more.style.display === 'block';
+
+        // Close all others
+        document.querySelectorAll('.more').forEach(m => m.style.display = 'none');
+
+        // Toggle clicked one
+        more.style.display = isVisible ? 'none' : 'block';
+      });
+    });
+  </script>
+</body>
+</html>

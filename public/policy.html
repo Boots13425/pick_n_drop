@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Policy | PickNdrop</title>
+  <link rel="shortcut icon" href="logo.jpg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('background.jpg') no-repeat center/cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .back-btn {
+      background: #222;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #7c3aed;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    nav a {
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-left: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #7c3aed;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 60px auto;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      flex: 1;
+    }
+
+    main h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    main p {
+      margin: 15px 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background: rgba(124, 58, 237, 0.2);
+      margin: 10px 0;
+      padding: 15px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    li:hover {
+      background: rgba(124, 58, 237, 0.4);
+    }
+
+    .hidden-info {
+      display: none;
+      padding: 10px;
+      font-size: 0.95rem;
+      color: #ddd;
+      margin-top: 8px;
+      border-left: 4px solid #7c3aed;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    footer button, .footer-back {
+      background-color: #7c3aed;
+      border: none;
+      color: #fff;
+      padding: 14px 28px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      display: inline-block;
+    }
+
+    footer button:hover, .footer-back:hover {
+      background-color: #5b21b6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-group">
+      <a href="home.html" class="back-btn">⬅ Back</a>
+      <img src="logo.jpg" alt="PickNdrop Logo">
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="testimonials.html">Testimonials</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Policy</h1>
+    <p>By using PickNdrop, you agree to:</p>
+    <ul>
+      <li>
+        Not send or carry illegal items
+        <div class="hidden-info">❌ Includes drugs, weapons, explosives, and restricted goods. Always obey local laws.</div>
+      </li>
+      <li>
+        Follow proper packaging and labeling
+        <div class="hidden-info">📦 Items should be clearly labeled and sealed securely to avoid damage or confusion.</div>
+      </li>
+      <li>
+        Respect agreed delivery times
+        <div class="hidden-info">⏱ Stick to the scheduled delivery window to maintain trust and platform reliability.</div>
+      </li>
+      <li>
+        Contact support for any issues
+        <div class="hidden-info">🛠 We're here 24/7 for disputes, package tracking, or clarification on rules.</div>
+      </li>
+    </ul>
+    <p>We value trust, transparency, and timely delivery.</p>
+  </main>
+
+  <footer>
+    
+    <button id="agreeBtn">✅ I Agree and Continue</button>
+    <button id="disagreeBtn">❌ I Disagree, I Won't Continue</button>
+  </footer>
+
+  <script>
+    // Expand/collapse policy descriptions
+    document.querySelectorAll("li").forEach(item => {
+      item.addEventListener("click", () => {
+        const info = item.querySelector(".hidden-info");
+        const isVisible = info.style.display === "block";
+
+        // Close all others
+        document.querySelectorAll(".hidden-info").forEach(div => div.style.display = "none");
+
+        // Toggle clicked one
+        info.style.display = isVisible ? "none" : "block";
+      });
+    });
+
+    // Agree button
+    document.getElementById('agreeBtn').addEventListener('click', () => {
+      window.location.href = 'home.html';
+    });
+
+    // Disagree button
+    document.getElementById('disagreeBtn').addEventListener('click', () => {
+      alert("You must agree to the policy to use PickNdrop. Redirecting...");
+      window.location.href = 'https://www.google.com'; // Or a custom denial page
+    });
+  </script>
+</body>
+</html>

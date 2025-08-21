@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedBack | PickNdrop</title>
+    <link rel="shortcut icon" href="logo.jpg">
+</head>
+<body>
+    <style>
+        body{
+          background-color: white;
+          color: black;
+          transition: 0.7s;
+        }
+        body.dark-mode{
+            background-color: rgb(33, 33, 33);
+            color: white;
+        }
+
+        .hamburger{
+            width: 45px;
+            height: 45px;
+            border:  none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+       
+        .hamburger img{
+           width: 30px;
+           height: 30px;
+        }
+       .appname{
+        display: flex;
+        margin: 35px;
+        margin-top: 70px;
+       }
+       .mylogo{
+        display: flex;
+        margin: 35px;
+        margin-top: -6px;
+       }
+       input{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        margin-top: 15px;
+        font-size: 17px;
+        border: none;
+        background-color: rgb(224, 224, 224);
+        
+       }
+       label{
+        font-size: 30px;
+        font-weight: bolder;
+       }
+       button{
+        border-radius: 20px;
+        cursor: pointer;
+       }
+       /*Sidebar stylying*/
+        ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        list-style: none;
+        font-size: 30px;
+        font-weight: bolder;
+        color: black;
+        gap: 20px;
+       }
+
+        ul :hover,
+        ul .active{
+        transition: 0.4s;
+        background: rgba(0, 0, 0, 0.274);
+        width: 100%;
+        }
+       
+       /*Show Sidebar*/
+      
+       .sidebar_hidden{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+        margin-top: 90px;
+        margin-left: -19px;
+        width: 180px;
+        height: 550px;
+        background: #2563c5;
+        position: fixed;
+       }
+
+       /*Toogle button*/
+       .hidebar{
+        display: none;
+       }
+       li{
+        display: flex;
+        margin-left: -40px;
+       }
+
+       nav{
+        margin-left: -8px;
+        margin-right: -8px;
+        margin-top: -10px;
+        display: flex;
+        justify-content: space-between;
+        height: 100px;
+        width: 100%;
+        align-items: center;
+        background: #2563c5;
+        position: fixed;
+       }
+       a{
+        text-decoration: none;
+        color: black;
+        font-size: 25px;
+       }
+       .content.shifted{
+        margin-left: 200px;
+       }
+       #main {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+      #logout{
+        display: none;
+      }
+    </style>
+   <!--Nvigation bar-->
+    <nav>
+       <div class="appname">
+            <button id="menutoogle" class="hamburger" onclick="displaySidebar()"><img src="bars-solid.svg"></button>
+            <div class="mylogo">
+                <img src="logo.jpg" width="50px" height="50px">
+                <h1>PICKN<span style="color: rgb(0, 191, 255);">DROP</span></h1>
+            </div>
+       </div>
+       <div style="display: flex; margin: 35px;">
+          <p id="greetings" style="font-size: 20px; color: white; margin-top: 75px; margin-right: 40px;"></p><button onclick="logOutAccount()" style="height: 30px; width: 30px; margin-top: 75px; margin-left: -28px;"><img src="circle-user-solid.svg" width="40px" height="30px" style="margin-left: -13px; margin-top: -4px;"></button>
+       </div>
+    </nav>
+    <div id="sidebar" class="hidebar">
+        <div class="sidebar_hidden">
+            <ul>
+                <li><img src="house-solid.svg" width="40px" height="23px"><a href="Dashboard.html">Dashboard</a></li>
+                <li style="margin-left: -30px;"><img src="magnifying-glass-solid.svg" width="23px" height="30px"><a href="findtrips.html">Find trips</a></li>
+                <li><img src="bell-solid.svg" width="40px" height="23px"><a>Notifications</a></li>
+                <li><img src="user-solid.svg" width="40px" height="23px"><a href="Profile.html">Profile</a></li>
+            </ul>
+            <p>________________________</p>
+
+            <div class="extra_features" >
+                <ul style="font-size: 20px; font-weight: bolder;">
+                    <li><img src="flag-solid.svg" width="30px" height="20px"><a href="Reports.html">Reports</a></li>
+                    <li><img src="message-solid.svg" width="30px" height="20px"><a href="Feedback.html" class="active">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+       
+    </div>
+    
+<main id="main" class="content">
+  
+    <h2 style="font-size: 50px;display: flex;margin-bottom: 30px; margin-top: 80px;">
+        <img src="message-solid.svg" width="40px" height="60px">Feedback
+    </h2><div id="logout" style="border-radius: 4px; position: fixed; box-shadow: 0 0 3px; margin-top: -120px; margin-left: 1150px; margin-bottom: 80px; text-align: center; background-color: beige; width: 100px; height: 30px;"><p style="margin-top: 1px;"><a href="home.html" style="color: red; font-size: 20px;">Log out</a></p></div>
+    
+    <form>
+        <button type="submit" style="font-size: 15px; font-weight: bolder; margin-left: 1000px; position: fixed; margin-top: -90px; height: 40px; width: 180px; background-color: rgb(0, 108, 158); color: white; border: none;">Submit FeedBack</button>
+        <p style="margin-top: -40px; position: fixed;">________________________________________________________________________________________________________________________________________________________________</p>
+        <h3 style="font-size: 40px; text-align: center;">What's your review on Pick N Drop📦 ?</h3>
+        <label for="fullname">Name:</label>
+        <input type="text" name="fullname" placeholder="Enter your name" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="text" name="feedback" placeholder="Give us feedback here" style="height: 125px;" required>
+    </form> 
+    
+</main>
+
+    <script src="theme.js"></script>
+    <script>
+        function displaySidebar() {
+          const sidebar = document.getElementById("sidebar");
+          const mainContent = document.getElementById("main");
+
+          if (sidebar.style.display === "block") {
+            sidebar.style.display = "none";   //Hide it
+            mainContent.classList.remove("shifted");
+          } else {
+            sidebar.style.display = "block";   //Show it
+            mainContent.classList.add("shifted");
+          }
+        }
+
+        function logOutAccount() {
+          const logOut = document.getElementById("logout");
+
+          if (logOut.style.display === "block"){
+            logOut.style.display = "none";
+          }else{
+            logOut.style.display = "block";
+          }
+        }
+
+       window.onload = function() {
+        const firstInput = localStorage.getItem("username");
+        const greet = document.getElementById("greetings");
+
+        if(firstInput) {
+          greet.innerHTML = `Hello👋, <strong>${firstInput}</strong>!`;
+        }else{
+          greet.innerHTML = "Welcome!"
+          //alert('User with name not found');
+        }
+       };
+
+       const Form = document.querySelector('form')
+        
+        Form.addEventListener('submit', async(e)=>{
+            const data = {
+                fullname: Form.elements['fullname'].value,
+                email: Form.elements['email'].value,
+                feedback: Form.elements['feedback'].value
+            }
+            const response = await fetch('/subfeed', {
+                method: 'POST',
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+
+            .then(res => res.json())
+            .then(data =>{
+            if(data.redirect && data.message){
+                alert(data.message);
+                window.location.href = data.redirect;
+            }
+            })
+            .catch(err => console.log("Error: ", err));
+        })
+    </script>
+</body>
+</html>
