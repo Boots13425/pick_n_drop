@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Table</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 2rem auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+        }
+
+               body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #212529;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            transition: margin-left 0.3s;
+            flex-wrap: wrap;
+        }
+        .sidebar {
+            width: 250px;
+            background: #f4f4f4;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .sidebar.hidden {
+            display: none;
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            margin: 5px 0;
+        }
+        .sidebar a:hover {
+            background: #ddd;
+        }
+        .active {
+            background: #007bff;
+            color: white;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+           
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .section-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            width: 100%; 
+        }
+        .trip-card {
+    
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            flex: 1 1 calc(30% - 20px);
+            box-sizing: border-box;
+        }
+        .trip-card img {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        
+        }
+        .trip-card h3 {
+            margin: 0 0 10px;
+        }
+        .trip-card p {
+            margin: 10px 0;
+            color: #555;
+        }
+        .trip-card button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .trip-card button:hover {
+            background: #0056b3;
+        }
+        .toggle-dark-mode {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .profile {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        #toggleSidebar {
+            margin-top: 20px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #toggleSidebar:hover {
+            background-color: #0056b3;
+        }
+    
+    </style>
+</head>
+<body>
+    
+<div class="container" id="container">
+    <div class="sidebar" id="sidebar" style="position: fixed;height:100vh;">
+        <div class="profile">
+            <img src="image.jpg" alt="Profile Picture">
+            <h3>Hey</h3>
+            <p>Welcome </p>
+        </div>
+        <h2>PICKNDROP</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="findtrip.html" class="active">Find Trip</a>
+        <a href="messages.html">Messages <span class="badge">5</span></a>
+        <a href="feedback.html">Feedback</a>
+        <a href="notifications.html">Notifications <span class="badge">3</span></a>
+        <a href="payment.html">Payment</a>
+        <a href="profile.html">Profile</a>
+        <button class="toggle-dark-mode" id="toggleDarkMode">Toggle Dark Mode</button>
+        <button id="toggleSidebar">Hide Sidebar</button>
+    </div>
+    <div class="content" id="content">
+        <div class="section-header">Find a Trip</div>
+    <table id="usersTable">
+        <tbody style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; position: relative;margin-left: 200px;">
+            <!-- dynamic insertion from the database here-->
+        </tbody>
+    </table>
+
+    
+   
+    <script>
+        fetch('/api/post')
+        .then(response=>response.json())
+        .then(post_trip =>{
+            const tbody = document.querySelector("#usersTable tbody")
+            post_trip.forEach(user => {
+                const tr = document.createElement('tr')
+                tr.innerHTML = `
+                <div class="trip-card">
+                  <img src="LOGO.jpg" alt="Trip to LA">
+                <p>Date: ${user.Date}</p>
+                <p>Destination: ${user.Destination}</p>
+                <p> What I don't travel with: ${user.Items}</p>
+                <p>Location: ${user.Location}</p>   
+                <p>Rating: ★★★★★</p>
+                <button>View profile</button> 
+                </div>
+                `
+                    tbody.appendChild(tr)
+            })
+            .catch(err => {
+                const tbody = document.querySelector('#usersTable tbody')
+                tbody.innerHTML =`
+                <tr><td stlye= "color:red;">FAILED TO LOAD FROM DATABASE</td></tr>
+                `
+            })
+        })
+
+        
+    const toggleDarkMode = document.getElementById('toggleDarkMode');
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const container = document.getElementById('container');
+
+    toggleDarkMode.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        sidebar.classList.toggle('dark-mode');
+    });
+
+    toggleSidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+        container.classList.toggle('sidebar-hidden');
+
+        // Update button text
+        if (sidebar.classList.contains('hidden')) {
+            toggleSidebar.textContent = 'Show Sidebar';
+        } else {
+            toggleSidebar.textContent = 'Hide Sidebar';
+        }
+    });
+    document.getElementById('viewProfileButton').onclick = function() {
+    window.location.href = 'profile.html';
+};
+
+    // You can dynamically set the user's first name from the previous signup
+    const firstName = "Ndive"; // This should come from your backend or user session
+    document.querySelector('.profile h3').textContent = firstName;
+    document.querySelector('.profile p').textContent = "Welcome back, " + firstName + "!";
+
+    </script>
+</body>
+</html

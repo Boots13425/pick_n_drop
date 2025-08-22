@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+            background-image: url("chat.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .chatcontainer {
+            max-width: 700px;
+            margin: 60px auto 0 auto;
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            border: none;
+          padding: 20px 10px 10px 10px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-top: 1px solid #444;
+            position: sticky;
+            bottom: 0;
+        }
+        #msg {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+            margin-right: 10px;
+        }
+        #sendbutton {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #sendbutton:hover {
+            background: #0056b3;
+        }
+        .sent {
+            align-self: flex-end;
+            background-color: #8e44ad;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 16px 16px 0 16px;
+            max-width: 70%;
+            word-break: break-word;
+        }
+        .received {
+            align-self: flex-start;
+            background: #f8d7da;
+            color: #222;
+            padding: 8px 16px;
+            border-radius: 16px 16px 16px 0;
+            max-width: 70%;
+            word-break: break-word;
+        }
+        #profileNameDisplay {
+            color:black;
+            font-size: 24px;
+            margin: 20px auto 0 auto;
+            text-align: center;
+            max-width: 500px;
+        }
+    </style>
+    <div id="profileNameDisplay"></div>
+    <div class="chatcontainer">
+        <div class="messages" id="messages"></div>
+        <div class="input-area">
+            <input id="msg" type="text" placeholder="Type your message..." />
+            <button id="sendbutton" onclick="sendMsg()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the profile name from the query string
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const profileName = getQueryParam('user');
+        if (profileName) {
+            document.getElementById('profileNameDisplay').textContent = `Chatting with: ${profileName}`;
+        }
+
+        // Use the correct port for your server
+        const ws = new WebSocket('ws://localhost:3001');
+
+        const messagesDiv = document.getElementById("messages");
+        const input = document.getElementById("msg");
+        const sendbutton = document.getElementById("sendbutton");
+
+        function addMessage(msg, type) {
+            const div = document.createElement("div");
+            div.textContent = msg;
+            div.className = type;
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        sendbutton.addEventListener("click", sendMsg);
+        input.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                sendMsg();
+            }
+        });
+
+        function sendMsg() {
+            const message = input.value.trim();
+            if (message) {
+                ws.send(message);
+                addMessage(message, "sent");
+                input.value = "";
+            }
+        }
+
+        ws.onmessage = (event) => {
+            addMessage(event.data, "received");
+        }
+    </script>
+</body>
+</html>

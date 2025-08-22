@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page2</title>
+<style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(237, 236, 236);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .next-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+        h2 {
+            text-align: center;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 80%;
+            padding: 10px;
+            background: #52a8e9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #52a8e9;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        fieldset{
+            height: 400px;
+            width: 450px;
+            background-color: white;
+            border: 1px solid white;
+            margin-left: 40px;
+            margin-top: 60px;
+            border-radius: 20px;
+            
+
+        }
+         
+    </style>
+</head>
+<body>
+   <fieldset>
+     <h2>Proceed Sign Up</h2>
+<a href="upload-images.html">move to next page</a>
+<div class="login-link">
+        Already have an account? <a href="login.html">Login here</a>
+     </div> 
+     </fieldset>
+        <script>
+            document.getElementById('signupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Here you would typically handle form submission, e.g. send data to the server
+        alert('Signup successful!');
+    });
+        </script>
+        <script>
+            // Ensure exactly 3 files are selected
+        document.getElementById('uploadForm').onsubmit = function(e) {
+            const files = document.querySelector('input[type="file"]').files;
+            if (files.length !== 3) {
+                alert('Please select exactly 3 images.');
+                e.preventDefault();
+            }
+        };
+        </script>
+        <script>
+function postTrip() {
+    const user = /* get current user */;
+    const tripData = /* get trip data from form */;
+    const imageId = /* get user's imageId */;
+    fetch('/api/post-trip', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({user, tripData, imageId})
+    }).then(res => {
+        if (res.ok) {
+            alert('Trip posted!');
+        } else {
+            res.json().then(data => alert(data.error));
+        }
+    });
+}
+</script>
+
+        
+</body>
+</html>

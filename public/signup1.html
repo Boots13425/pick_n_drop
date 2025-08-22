@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #52a8e9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #52a8e9;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2>Signup</h2>
+    <form action="/register" method="POST">
+        <input type="text" id="name" placeholder="Name" name="FullName" required>
+        <input type="text" id="username" placeholder="Username" name="UserName" required>
+        <input type="email" id="Email" placeholder="Email" name="Email" required>
+        <input type="password" id="Password" placeholder="Password" name="Password" required>
+         <label for="gender">Gender</label>
+        <select  id="gender" name="Gender" required>
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <div>
+      <input type="checkbox" id="agree" name="agree" required>
+      <label for="agree">
+        I have read and agree to the 
+        <a href="/policy" target="_blank">Policy</a>
+      </label>
+    </div>
+     <button type="submit">Sign Up</button>
+
+    </form>
+    
+<script>
+    const nameInput = document.getElementById('name');
+    const usernameInput = document.getElementById('UserName');
+
+    nameInput.addEventListener('input', () => {
+        const name = nameInput.value.trim();
+        function generateUsername(firstName) {
+  const randomNum = Math.floor(Math.random() * 10000); // up to 4 digits
+  return ${firstname.toLowerCase()}${randomNum};
+}
+    })
+
+
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Here you would typically handle form submission, e.g. send data to the server
+        alert('Signup successful!');
+    });
+        
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      const agree = document.getElementById('agree');
+      if (!agree.checked) {
+        alert("You must agree to the policies before signing up.");
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</script>
+</body>
+</html>

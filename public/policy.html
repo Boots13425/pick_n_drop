@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Policy | PickNdrop</title>
-  <link rel="shortcut icon" href="logo.jpg">
   <style>
     * {
       margin: 0;
@@ -101,7 +100,7 @@
       transition: background 0.3s;
       position: relative;
     }
-
+   
     li:hover {
       background: rgba(124, 58, 237, 0.4);
     }
@@ -122,7 +121,7 @@
     }
 
     footer button, .footer-back {
-      background-color: #7c3aed;
+      background: #7c3aed;
       border: none;
       color: #fff;
       padding: 14px 28px;
@@ -133,13 +132,11 @@
       transition: 0.3s ease;
       display: inline-block;
     }
-
-    footer button:hover, .footer-back:hover {
-      background-color: #5b21b6;
-    }
+       
   </style>
 </head>
 <body>
+  <form action="/policy" method="POST">
   <header>
     <div class="left-group">
       <a href="home.html" class="back-btn">⬅ Back</a>
@@ -173,15 +170,21 @@
         <div class="hidden-info">🛠 We're here 24/7 for disputes, package tracking, or clarification on rules.</div>
       </li>
     </ul>
+     <li>
+        Incase of any missing item(s)
+        <div class="hidden-info">🛠 If an item goes missing,customers must report it within 48 hours for  <br> investigation,and compensation will be based on declared value and coverage policy.</div>
+      </li>
+    </ul>
     <p>We value trust, transparency, and timely delivery.</p>
+    
   </main>
 
   <footer>
     
-    <button id="agreeBtn">✅ I Agree and Continue</button>
+    <a href="/sign" class="agreeBtn" style="background-color: #7c3aed; color: white;height: 70px;width: 160px;">✅ I Agree and Continue</a>
     <button id="disagreeBtn">❌ I Disagree, I Won't Continue</button>
   </footer>
-
+  </form>
   <script>
     // Expand/collapse policy descriptions
     document.querySelectorAll("li").forEach(item => {
@@ -198,9 +201,9 @@
     });
 
     // Agree button
-    document.getElementById('agreeBtn').addEventListener('click', () => {
-      window.location.href = 'home.html';
-    });
+    // document.getElementById('agreeBtn').addEventListener('click', () => {
+    //   window.location.href = 'signup1.html';
+    // });
 
     // Disagree button
     document.getElementById('disagreeBtn').addEventListener('click', () => {

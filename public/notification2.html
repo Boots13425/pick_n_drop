@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PickNdrop Notifications</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: blue;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 20px;
+        height: 100px;
+    }
+
+    .user-card {
+        background: white;
+        margin: 15px auto ;
+        padding: 15px;
+        margin-top: 50px;
+        border-radius: 20px;
+        max-width: 500px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: 0.3s;
+        padding-top: 40px;
+       }
+    .user-card:hover {
+        background: #fff8f8;
+    }
+    .user-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .user-header img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .user-info {
+        flex: 1;
+        margin-left: 10px;
+    }
+    .price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+    .address {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #555;
+    }
+    .eta {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #F44336;
+        text-align: right;
+    }
+    /* Timeline hidden by default */
+    .timeline {
+        display: none;
+        margin-top: 15px;
+        position: relative;
+        padding-left: 60px;
+    }
+    .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: #ccc;
+    }
+    .timeline-step {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .timeline-step:last-child {
+        margin-bottom: 0;
+    }
+    .timeline-step::before {
+        content: "";
+        position: absolute;
+        left: -30px;
+        top: 3px;
+        width: 15px;
+        height: 15px;
+        background: #F44336;
+        border-radius: 50%;
+        border: 2px solid white;
+        z-index: 1;
+    }
+
+    .timeline-step.completed::before {
+        background: #4CAF50;
+    }
+    .step-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .step-date {
+        font-size: 12px;
+        color: #777;
+    }
+</style>
+</head>
+<body>
+
+<header>🔔 Tracking Notifications</header>
+
+<!-- User 1 -->
+<div class="user-card" onclick="toggleTimeline(this)">
+    <div class="user-header">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Traveller">
+        <div class="user-info">
+            <strong>good ID: 547548</strong>
+            Date: MAY 10, 2020
+        </div>
+        <div class="price">$17.50</div>
+    </div>
+    <div class="address">
+        America, LA
+    </div>
+    <div class="eta"> delivered </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+        <div class="timeline-step placed completed">
+            <div class="step-title">Order Placed</div>
+            <div class="step-date">May 10, 2020 | 06:00  pm</div>
+        </div>
+        <div class="timeline-step Dispatched completed">
+            <div class="step-title">good Dispatched</div>
+            <div class="step-date">May 10, 2020 | 08:00 am</div>
+        </div>
+        <div class="timeline-step transit completed">
+            <div class="step-title">good in Transit</div>
+            <div class="step-date">Reached at Jackline Tower, New York</div>
+        </div>
+        <div class="timeline-step delivered completed">
+            <div class="step-title">Delivered Successfully</div>
+            <div class="step-date">Delivered </div>
+        </div>
+    </div>
+</div>
+
+<!-- User 2 -->
+<div class="user-card" onclick="toggleTimeline(this)">
+    <div class="user-header">
+        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Traveller">
+        <div class="user-info">
+            <strong>Order ID: 875562</strong>
+            Date: 20 August 2025
+        </div>
+        <div class="price">$25.00</div>
+    </div>
+    <div class="address">
+    America, Texas
+    <div class="eta">⏳ 1day 2hours 05minutes</div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+        <div class="timeline-step completed">
+            <div class="step-title">Order Placed</div>
+            <div class="step-date">14 August, 2025 | 08:00 am</div>
+        </div>
+        <div class="timeline-step completed">
+            <div class="step-title">good Dispatched</div>
+            <div class="step-date">August 14, 2025 | 10:00 am </div>
+        </div>
+        <div class="timeline-step completed">
+            <div class="step-title">good in Transit</div>
+            <div class="step-date">On the way to America, Texas</div>
+        </div>
+        <div class="timeline-step">
+            <div class="step-title">Delivered Successfully</div>
+            <div class="step-date">Not Delivered yet</div>
+        </div>
+    </div>
+</div>
+<script>
+function toggleTimeline(card) {
+    let timeline = card.querySelector('.timeline');
+    timeline.style.display = timeline.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+<script>
+    // Set your ETA date/time here (e.g., delivery time)
+const etaDate = new Date ("2025-08-15T18:30:00"); // adjust to your ETA
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = etaDate - now;
+
+  if (diff <= 0) {
+    document.getElementById("eta-countdown").textContent = "Delivered!";
+    clearInterval(timer);
+    return;
+  }
+
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById("eta-countdown").textContent =
+    ETA ; $: {'hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")'};
+}
+
+// Update every second
+const timer = setInterval(updateCountdown, 1000);
+
+// Run once immediately to avoid delay
+updateCountdown();
+</script>
+
+</body>
+</html>

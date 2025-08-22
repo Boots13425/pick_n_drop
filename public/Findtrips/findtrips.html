@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find trips | PickNdrop</title>
+    <link rel="shortcut icon" href="logo.jpg">
+</head>
+<body>
+    <style>
+        body{
+            background-color: white;
+            color: black;
+            transition: 0.7s;
+        }
+        body.dark-mode{
+            background-color: rgb(33, 33, 33);
+            color: white;
+        }
+
+        .hamburger{
+            width: 45px;
+            height: 45px;
+            border:  none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+       
+        .hamburger img{
+           width: 30px;
+           height: 30px;
+        }
+       .appname{
+        display: flex;
+        margin: 35px;
+        margin-top: 70px;
+       }
+       .mylogo{
+        display: flex;
+        margin: 35px;
+        margin-top: -6px;
+       }
+       .search{
+        margin-top: 90px;
+        margin-left: 50px;
+       }
+       input{
+        width: 300px;
+        height: 30px;
+        border-radius: 10px;
+        margin-left: 200px;
+       }
+       button{
+        border-radius: 20px;
+        cursor: pointer;
+       }
+       /*Sidebar stylying*/
+        ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        list-style: none;
+        font-size: 30px;
+        font-weight: bolder;
+        color: black;
+        gap: 20px;
+       }
+       
+       /*Show Sidebar*/
+      
+       .sidebar_hidden{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+        margin-top: 90px;
+        margin-left: -19px;
+        width: 180px;
+        height: 550px;
+        background: #2563c5;
+        position: fixed;
+       }
+
+       /*Toogle button*/
+       .hidebar{
+        display: none;
+       }
+       li{
+        display: flex;
+        margin-left: -40px;
+       }
+
+       nav{
+        margin-left: -8px;
+        margin-right: -8px;
+        margin-top: -10px;
+        display: flex;
+        justify-content: space-between;
+        height: 100px;
+        width: 100%;
+        align-items: center;
+        background: #2563c5;
+        position: fixed;
+       }
+       .content.shifted{
+        margin-left: 200px;
+       }
+       #main {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+        }
+       a{
+        text-decoration: none;
+        color: #000;
+        font-size: 25px;
+       }
+       #logout{
+        display: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .profile_card {
+            background-color: #e7f3fe;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 3px;
+        }
+
+        .grid .profile_card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+        h3{
+            color: #000;
+        }
+        .stars {
+            margin: 10px 0;
+            color: #000;
+        }
+
+        .flight-info {
+            font-size: 14px;
+            color: #2c2929;
+            margin: 5px 0;
+        }
+    </style>
+   <!--Nvigation bar-->
+    <nav>
+       <div class="appname">
+            <button id="menutoogle" class="hamburger" onclick="displaySidebar()"><img src="bars-solid.svg"></button>
+            <div class="mylogo">
+                <img src="logo.jpg" width="50px" height="50px">
+                <h1>PICKN<span style="color: rgb(0, 191, 255);">DROP</span></h1>
+            </div>
+       </div>
+       
+       <div style="display: flex; margin: 35px;">
+            <p id="greetings" style="font-size: 20px; color: white; margin-top: 75px; margin-right: 40px;"></p><button onclick="logOutAccount()" style="height: 30px; width: 30px; margin-top: 75px; margin-left: -28px;"><img src="circle-user-solid.svg" width="40px" height="30px" style="margin-left: -13px; margin-top: -4px;"></button>
+        </div>
+    </nav>
+    <div id="sidebar" class="hidebar">
+        <div class="sidebar_hidden">
+            <ul>
+                <li><img src="house-solid.svg" width="40px" height="30px"><a href="Dashboard.html">Dashboard</a></li>
+                <li><img src="magnifying-glass-solid.svg" width="40px" height="30px"><a href="findtrips.html">Find trips</a></li>
+                <li><img src="bell-solid.svg" width="40px" height="30px"><a>Notifications</a></li>
+                <li><img src="user-solid.svg" width="40px" height="30px"><a>Profile</a></li>
+            </ul>
+            <p>________________________</p>
+
+            <div class="extra_features" >
+                <ul style="font-size: 20px; font-weight: bolder;">
+                    <li><img src="flag-solid.svg" width="30px" height="20px"><a>Reports</a></li>
+                    <li><img src="message-solid.svg" width="30px" height="20px"><a>Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+       
+    </div>
+
+    <main id="main" class="content">
+       <div style="display: flex;">
+        <h2 style="font-size: 50px;display: flex;margin-bottom: 30px; margin-top: 80px; ">
+            <img src="magnifying-glass-solid.svg" width="40px" height="60px">Find trips
+        </h2><div id="logout" style="border-radius: 4px; position: fixed; box-shadow: 0 0 3px; margin-top: 60px; margin-left: 1050px; margin-bottom: 80px; text-align: center; background-color: beige; width: 100px; height: 30px;"><p style="margin-top: 1px;"><a href="home.html" style="color: red; font-size: 20px;">Log out</a></p></div>
+    
+        <form class="search">
+            <input type="text" id="searchbar" placeholder="search for your package destination........" >
+            <button>search</button>
+        </form>
+       </div>
+       <p style="margin-top: -40px;">________________________________________________________________________________________________________________________________________________</p>
+
+       <div class="grid" id="profileGrid">
+        <div class="profile_card" data-destination="New York">
+            <img src="image3.jpg" alt="Lemma Precious">
+            <h3>@pretty_precious</h3>
+            <div class="stars">★★★★☆</div>
+            <div class="flight-info">From: Bali</div>
+            <div class="flight-info">To: New York</div>
+            <div class="flight-info">Flight Time: 3pm</div>
+            <button class="button" onclick="viewProfile('Lemma Precious')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="Paris">
+            <img src="image4.jpg" alt="Chony Arshley">
+            <h3>@miss_Arshley</h3>
+            <div class="stars">★★★★☆</div>
+            <div class="flight-info">From: yaounde</div>
+            <div class="flight-info">To: Paris</div>
+            <div class="flight-info">Flight Time: 11pm</div>
+            <button class="button" onclick="viewProfile('Chony Arshley')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="London">
+            <img src="image5.jpg" alt="Mayer Belle">
+            <h3>Meet_Mayer</h3>
+            <div class="stars">★★★★★</div>
+            <div class="flight-info">From: Bamenda</div>
+            <div class="flight-info">To: London</div>
+            <div class="flight-info">Flight Time: 3pm</div>
+            <button class="button" onclick="viewProfile('Mayer Belle')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="Miami">
+            <img src="image1.jpg" alt="Ndive Lyonga">
+            <h3>Mr_Lyonga</h3>
+            <div class="stars">★★★☆☆</div>
+            <div class="flight-info">From: yaounde</div>
+            <div class="flight-info">To: Miami</div>
+            <div class="flight-info">Flight Time: 4pm</div>
+            <button class="button" onclick="viewProfile('Ndive Lyonga')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="New York">
+            <img src="image2.jpg" alt="Egbemba Precious">
+            <h3>baby_precious</h3>
+            <div class="stars">★★★★☆</div>
+            <div class="flight-info">From: Limbe</div>
+            <div class="flight-info">To: New York</div>
+            <div class="flight-info">Flight Time: 11pm</div>
+            <button class="button" onclick="viewProfile('Egbemba Precious')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="Miami">
+            <img src="image6.jpg" alt="Fiekfu Mercy">
+            <h3>meet_mercy</h3>
+            <div class="stars">★★★★★</div>
+            <div class="flight-info">From: yaounde</div>
+            <div class="flight-info">To: Miami</div>
+            <div class="flight-info">Flight Time: 6pm</div>
+            <button class="button" onclick="viewProfile('Fiekfu Mercy')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="London">
+            <img src="image7.jpg" alt="Nsom Jefferson">
+            <h3>Nsom Jefferson</h3>
+            <div class="stars">★★★☆☆</div>
+            <div class="flight-info">From: yaounde</div>
+            <div class="flight-info">To: London</div>
+            <div class="flight-info">Flight Time: 8pm</div>
+            <button class="button" onclick="viewProfile('Nsom Jefferson')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="Paris">
+            <img src="image8.jpg" alt="Tamanji Charles">
+            <h3>Mr_Charles</h3>
+            <div class="stars">★★★★☆</div>
+            <div class="flight-info">From: yaounde</div>
+            <div class="flight-info">To: Paris</div>
+            <div class="flight-info">Flight Time: 12PM</div>
+            <button class="button" onclick="viewProfile('Tamanji Charles')">View Profile</button>
+        </div>
+        <div class="profile_card" data-destination="Singapore">
+            <img src="image9.jpg" alt="Shalom P.">
+            <h3>Shalom_P.</h3>
+            <div class="stars">★★★★★</div>
+            <div class="flight-info">From: Buea</div>
+            <div class="flight-info">To: Singapore</div>
+            <div class="flight-info">Flight Time: 1PM</div>
+            <button class="button" onclick="viewProfile('Shalom P.')">View Profile</button>
+        </div>
+    </div>
+
+    </main>
+    <script src="theme.js"></script>
+    <script>
+        const searchBar = document.getElementById('searchbar')
+        const profiles = document.querySelectorAll('.profile_card')
+
+        searchBar.addEventListener('input', function() {
+            const searchTerm = searchBar.value.toLowerCase();
+
+            profiles.forEach(profile => {
+                const destination = profile.getAttribute('data-destination').toLowerCase();
+
+                if (destination.includes(searchTerm)){
+                    profile.style.display = 'block';
+                }else{
+                    profile.style.display = 'none';
+                }
+            });
+        });
+
+       function displaySidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("main");
+
+            if (sidebar.style.display === "block") {
+                sidebar.style.display = "none";   //Hide it
+                mainContent.classList.remove("shifted");
+            } else {
+                sidebar.style.display = "block";   //Show it
+                mainContent.classList.add("shifted");
+            }
+        }
+
+        function logOutAccount() {
+          const logOut = document.getElementById("logout");
+
+          if (logOut.style.display === "block"){
+            logOut.style.display = "none";
+          }else{
+            logOut.style.display = "block";
+          }
+        }
+
+       window.onload = function() {
+        const firstInput = localStorage.getItem("name");
+
+        if(firstInput) {
+            document.getElementById("greetings").innerHTML = `Hello👋, <strong>${firstInput}!</strong>`;
+        }
+        else{
+            alert('User with name not found')
+        }
+       };
+    </script>
+</body>
+</html>
